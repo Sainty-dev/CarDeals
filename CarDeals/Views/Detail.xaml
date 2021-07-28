@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:cars="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="CarDeals.Views.Detail">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Image Source="bmw.jpg" Margin="0,-44,0,0" Aspect="AspectFill" Grid.ColumnSpan="2" />
+
+        <cars:PancakeView VerticalOptions="End" HeightRequest="120" Grid.ColumnSpan="2">
+            <cars:PancakeView.BackgroundGradientStops>
+                <cars:GradientStopCollection>
+                    <cars:GradientStop Color="Transparent" Offset="0" />
+                    <cars:GradientStop Color="White" Offset="1" />
+                </cars:GradientStopCollection>
+            </cars:PancakeView.BackgroundGradientStops>
+        </cars:PancakeView>
+
+        <cars:PancakeView CornerRadius="20" HeightRequest="500" VerticalOptions="EndAndExpand"
+                           Grid.RowSpan="2" BackgroundColor="#FFFFFF" Grid.ColumnSpan="2" Margin="20,20,20,40">
+            <cars:PancakeView.Shadow>
+                <cars:DropShadow Color="#000000" Opacity="0.1" Offset="10,10" BlurRadius="30" />
+            </cars:PancakeView.Shadow>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                
+
+                <Label Grid.Row="0" FontSize="25"
+                        Margin="24,24,24,8" Text="{Binding Name,
+                       StringFormat='{0}⭐⭐⭐'}"/>
+
+                <Label Grid.Row="1" Margin="24,8" FontSize="15"
+                       Text="{Binding Descrition}" />
+
+                <Label Grid.Row="2" FontSize="19" 
+                      Margin="24,8" Text="Get to know it in details" />
+
+
+                <StackLayout Margin="24,8" Padding="12" Grid.Row="3" BackgroundColor ="#FAFBF8">
+                    <Label Text="Manufacturer" FontSize="Medium" TextColor="DarkGray"/>
+                    <Label Text="{Binding Manufacturer}" TextColor="#966900" />
+                    <Label Text="Model" FontSize="Medium" TextColor="DarkGray" />
+                    <Label Text="{Binding Model}"  TextColor="#966900"  />
+                    <Label Text="Year" FontSize="Medium" TextColor="DarkGray"/>
+                    <Label Text="{Binding Year}" TextColor="#966900" />
+                    <Label Text="Price" FontSize="Medium" TextColor="DarkGray"  />
+                    <Label Text="{Binding Price,  StringFormat='R {0:F2}'}" TextColor="#966900" />
+                    
+                </StackLayout>
+                
+
+                <Button Grid.Row="4" HeightRequest="56" FontSize="19" 
+                        BackgroundColor="LightGray" TextColor="#966900"
+                        VerticalOptions="End" Text="Go back" Command="{Binding GoBackToList}" />
+            </Grid>
+        </cars:PancakeView>
+    </Grid>
+   
+</ContentPage>

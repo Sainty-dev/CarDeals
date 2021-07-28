@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:behave="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="CarDeals.Views.MainPage"
+              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:Converters="clr-namespace:CarDeals.Converters"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:NullTextToHiddenConverter x:Key="NullTextToHiddenConverter" />
+            <Converters:JamesToGreenConverter x:Key="JamesToGreenConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <Entry
+                Text="{Binding Name}"
+                Placeholder="What is your name?" />
+
+            <Label
+                IsVisible="{Binding Name, Converter={StaticResource NullTextToHiddenConverter}}"
+                TextColor="{Binding Name, Converter={StaticResource JamesToGreenConverter}}"
+                FontAttributes="Bold"
+                FontSize="40"
+                LineBreakMode="TailTruncation"
+                Margin="10">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Hello there, " />
+                        <Span Text="{Binding Name}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button
+                Text="Load Vehicles"
+                Command="{Binding GetVehiclesCommand}"/>
+
+            <ListView
+                HasUnevenRows="True"
+                ItemsSource="{Binding Vehicles}">
+                <ListView.Behaviors>
+                    <behave:EventToCommandBehavior Command="{Binding ItemSelectedCommand}" 
+                                    EventName="ItemTapped" 
+                                EventArgsParameterPath="Item" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame
+                            Margin="0,0,0,10"
+                            Padding="5"
+                            BackgroundColor="White"
+                            BorderColor="#F0F0F0"
+                            HasShadow="True">
+                                <Grid
+                                HeightRequest="50"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start"
+                                WidthRequest="200">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18" />
+                                        <ColumnDefinition Width="60" />
+                                    </Grid.ColumnDefinitions>
+
+
+                                    <abstractions:CircleImage
+                                    Grid.Column="1"
+                                    Aspect="AspectFit"
+                                    HeightRequest="30"
+                                    HorizontalOptions="StartAndExpand"
+                                    Source="logo.jpg"
+                                    WidthRequest="40" />
+
+                                    <Label
+                                    Grid.Column="2"
+                                    FontSize="15"
+                                    Text="{Binding Manufacturer}"
+                                    TextColor="Black"
+                                    VerticalOptions="CenterAndExpand" />
+
+                                </Grid>
+                            </Frame>
+
+                          
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+
+
+    </ContentPage.Content>
+
+</ContentPage>
